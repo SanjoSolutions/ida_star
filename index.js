@@ -7,7 +7,6 @@ export function search(
 ) {
   let solution
   let maximumTravelDistance = estimateTravelDistance(root)
-  let iterationNumber = 1
   do {
     const result = iteration(
       root,
@@ -23,7 +22,6 @@ export function search(
     } else {
       maximumTravelDistance = result.nextMaximumTravelDistance
     }
-    iterationNumber++
   } while (!solution)
 
   return solution

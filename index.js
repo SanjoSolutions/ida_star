@@ -1,10 +1,4 @@
-export function search(
-  root,
-  estimateTravelDistance,
-  isSolution,
-  requestChildren,
-  requestParent
-) {
+export function search(root, estimateTravelDistance, isSolution, requestChildren, requestParent) {
   let solution
   let maximumTravelDistance = estimateTravelDistance(root)
   do {
@@ -27,34 +21,21 @@ export function search(
   return solution
 }
 
-function iteration(
-  root,
-  estimateTravelDistance,
-  isSolution,
-  requestChildren,
-  requestParent,
-  maximumTravelDistance
-) {
+function iteration(root, estimateTravelDistance, isSolution, requestChildren, requestParent, maximumTravelDistance) {
   let node = root
   let nextMaximumTravelDistance = Infinity
   while (true) {
     if (isSolution(node)) {
       return {
         solution: node,
-        nextMaximumTravelDistance: null
+        nextMaximumTravelDistance: null,
       }
     } else {
       const estimatedTotalTravelDistance = estimateTravelDistance(node)
       if (estimatedTotalTravelDistance > maximumTravelDistance) {
-        nextMaximumTravelDistance = Math.min(
-          nextMaximumTravelDistance,
-          estimatedTotalTravelDistance
-        )
+        nextMaximumTravelDistance = Math.min(nextMaximumTravelDistance, estimatedTotalTravelDistance)
       }
-      if (
-        estimatedTotalTravelDistance <= maximumTravelDistance &&
-        requestChildren(node).length >= 1
-      ) {
+      if (estimatedTotalTravelDistance <= maximumTravelDistance && requestChildren(node).length >= 1) {
         node = requestChildren(node)[0]
       } else {
         let parent = requestParent(node)
@@ -64,8 +45,8 @@ function iteration(
           if (childIndex === -1) {
             throw new Error(
               'Could not find child node in children. ' +
-              'Please make sure that references to the same nodes stay the same ' +
-              'between multiple requestChildren calls for the same node.'
+                'Please make sure that references to the same nodes stay the same ' +
+                'between multiple requestChildren calls for the same node.'
             )
           }
           const maximumChildIndex = parentChildren.length - 1
@@ -83,7 +64,7 @@ function iteration(
         if (!parent) {
           return {
             solution: null,
-            nextMaximumTravelDistance
+            nextMaximumTravelDistance,
           }
         }
       }
